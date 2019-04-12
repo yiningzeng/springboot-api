@@ -1,9 +1,5 @@
 package com.baymin.restroomapi.config;
 
-import com.baymin.restroomapi.dao.LevelDao;
-import com.baymin.restroomapi.dao.UserDao;
-import com.baymin.restroomapi.entity.Level;
-import com.baymin.restroomapi.entity.User;
 import com.baymin.restroomapi.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

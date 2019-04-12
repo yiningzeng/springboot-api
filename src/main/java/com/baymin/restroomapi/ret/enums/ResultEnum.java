@@ -16,6 +16,11 @@ public enum ResultEnum {
     LIST_EMPTY(102,"数据为空"),
     UPDATE_EMPTY(103,"未找到更新的数据"),
 
+
+    FAIL_NO_PRODUCT(10,"不存在的商品"),
+
+
+
     NO_LIST(1101,"数据为空"),
 
     FAIL_ADD_USER(1001,"新增用户失败"),

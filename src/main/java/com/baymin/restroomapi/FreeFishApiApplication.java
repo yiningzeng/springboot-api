@@ -1,11 +1,8 @@
 package com.baymin.restroomapi;
 
-import com.baymin.restroomapi.dao.UserDao;
-import com.baymin.restroomapi.entity.FuckFlow;
 import de.codecentric.boot.admin.server.config.EnableAdminServer;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -29,7 +26,7 @@ import javax.servlet.MultipartConfigElement;
 @Configuration
 @EnableAdminServer
 @Slf4j
-public class RestroomApiApplication {
+public class FreeFishApiApplication {
 
     @Value("${server.port}")
     private String port;
@@ -38,7 +35,7 @@ public class RestroomApiApplication {
 
     public static void main(String[] args) {
 
-        SpringApplication.run(RestroomApiApplication.class, args);
+        SpringApplication.run(FreeFishApiApplication.class, args);
     }
     @PostMapping("/test")
     public Object post(@RequestBody FuckFlow fuckFlow) throws Exception {
