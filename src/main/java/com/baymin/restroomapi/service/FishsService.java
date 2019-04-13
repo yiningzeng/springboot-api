@@ -36,4 +36,6 @@ public interface FishsService {
      */
     Object findAll(Optional<Integer> appointKeyId, Optional<Integer> status, Pageable pageable)throws MyException;
 
+
+    Object findAllAppointKey()throws MyException;
 }

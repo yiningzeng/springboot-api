@@ -34,7 +34,7 @@ public class FishsController {
             @ApiImplicitParam(name = "id", value = "闲鱼商品id",required = true, dataType = "string", paramType = "path"),
             @ApiImplicitParam(name = "status", required = true, value = "状态{0:朕已阅 1:未读 2:置顶}", dataType = "string", paramType = "query"),
     })
-    @PatchMapping("/fishs/{id}")
+    @PatchMapping("/{id}")
     public Object update(@PathVariable(value = "id") String id,
                          @RequestParam(value = "status") Integer status)throws MyException{
         return fishsService.updateStatusById(id,status);
@@ -46,9 +46,18 @@ public class FishsController {
             @ApiImplicitParam(name = "authorization", value = "authorization token", required = true, dataType = "string", paramType = "header"),
             @ApiImplicitParam(name = "id",value = "闲鱼商品id", required = true, dataType = "string",paramType = "path"),
     })
-    @DeleteMapping(value = "/fishs/{id}")
+    @DeleteMapping(value = "/{id}")
     public Object deleteRestRoom(@PathVariable("id") String id)throws MyException{
         return fishsService.deleteById(id);
+    }
+
+    @ApiOperation(value = "获取关键字", response = Fishs.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header")
+    })
+    @GetMapping(value = "/keys")
+    public Object getAppointKey() throws Exception {
+        return fishsService.findAllAppointKey();
     }
 
     /**
@@ -68,8 +77,8 @@ public class FishsController {
 //            @ApiImplicitParam(name = "sortType", value = "排序类型",defaultValue = "desc",required = false, dataType = "string", paramType = "query"),
 //            @ApiImplicitParam(name = "sortField", value = "排序字段",defaultValue = "createTime",required = false, dataType = "string", paramType = "query")
     })
-    @GetMapping(value = "/fishs")
-    public Object getRestRoomListByPage(
+    @GetMapping(value = "/list")
+    public Object getFishs(
             @RequestParam(value = "appointKeyId", required = false) Integer appointKeyId,
             @RequestParam(value = "statusType", required = false) Integer status,
             @RequestParam(value = "showTip", required = false, defaultValue = "1") Integer showTip,

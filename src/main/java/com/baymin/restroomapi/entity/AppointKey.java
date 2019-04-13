@@ -39,7 +39,7 @@ public class AppointKey implements Serializable {
     @OneToMany(mappedBy = "appointKey",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @JsonManagedReference
+    @JsonIgnore
     @ApiModelProperty(value = "对应的查询数据")
     private List<Fishs> fishs = new ArrayList<>();
 

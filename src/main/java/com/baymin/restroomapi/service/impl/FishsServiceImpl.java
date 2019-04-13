@@ -1,5 +1,6 @@
 package com.baymin.restroomapi.service.impl;
 
+import com.baymin.restroomapi.dao.AppointKeyDao;
 import com.baymin.restroomapi.dao.FishsDao;
 import com.baymin.restroomapi.entity.Fishs;
 import com.baymin.restroomapi.ret.R;
@@ -21,9 +22,11 @@ import java.util.Optional;
 @Slf4j
 @Service
 public class FishsServiceImpl implements FishsService {
+
     @Autowired
     private FishsDao fishsDao;
-
+    @Autowired
+    private AppointKeyDao appointKeyDao;
 
 
     @Override
@@ -104,5 +107,10 @@ public class FishsServiceImpl implements FishsService {
                 return findBy(null, status, pageable);
             }
         });
+    }
+
+    @Override
+    public Object findAllAppointKey() throws MyException {
+        return R.success(appointKeyDao.findAll());
     }
 }
