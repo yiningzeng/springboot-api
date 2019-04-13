@@ -27,7 +27,7 @@ public class FishsServiceImpl implements FishsService {
 
 
     @Override
-    public Object deleteById(Integer id) throws MyException {
+    public Object deleteById(String id) throws MyException {
         return R.callBackRet(fishsDao.findById(id), new R.OptionalResult() {
             @Override
             public Object onTrue(Object data) {
@@ -43,12 +43,12 @@ public class FishsServiceImpl implements FishsService {
     }
 
     @Override
-    public Object updateStatusById(Integer id, Integer status) throws MyException {
+    public Object updateStatusById(String id, Integer status) throws MyException {
         return R.callBackRet(fishsDao.findById(id), new R.OptionalResult() {
             @Override
             public Object onTrue(Object data) {
                 Fishs fishs=(Fishs)data;
-                fishs.setStatus(status);
+                fishs.setStatusType(status);
                 if(fishsDao.save(fishs)!=null) return R.success();
                 return R.error(ResultEnum.FAIL_ACTION_MESSAGE);
             }

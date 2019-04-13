@@ -18,7 +18,7 @@ public interface FishsService {
      * @return
      * @throws MyException
      */
-    Object deleteById(Integer id) throws MyException;
+    Object deleteById(String id) throws MyException;
 
     /**
      * 更新
@@ -26,7 +26,7 @@ public interface FishsService {
      * @return
      * @throws MyException
      */
-    Object updateStatusById(Integer id, Integer status) throws MyException;
+    Object updateStatusById(String id, Integer status) throws MyException;
 
     /**
      * 查找全部

@@ -35,7 +35,7 @@ public class FishsController {
             @ApiImplicitParam(name = "status", required = true, value = "状态{0:朕已阅 1:未读 2:置顶}", dataType = "string", paramType = "query"),
     })
     @PatchMapping("/fishs/{id}")
-    public Object update(@PathVariable(value = "id") Integer id,
+    public Object update(@PathVariable(value = "id") String id,
                          @RequestParam(value = "status") Integer status)throws MyException{
         return fishsService.updateStatusById(id,status);
     }
@@ -47,7 +47,7 @@ public class FishsController {
             @ApiImplicitParam(name = "id",value = "闲鱼商品id", required = true, dataType = "string",paramType = "path"),
     })
     @DeleteMapping(value = "/fishs/{id}")
-    public Object deleteRestRoom(@PathVariable("id") Integer id)throws MyException{
+    public Object deleteRestRoom(@PathVariable("id") String id)throws MyException{
         return fishsService.deleteById(id);
     }
 
@@ -60,24 +60,34 @@ public class FishsController {
     @ApiOperation(value = "获取产品列表[分页]", response = Fishs.class)
     @ApiImplicitParams({
             @ApiImplicitParam(name = "authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header"),
-            @ApiImplicitParam(name = "appointKeyId", value = "查询的字段id",dataType = "string", paramType = "path"),
-            @ApiImplicitParam(name = "status", value = "状态", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "appointKeyId", value = "查询的字段id",dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "statusType", value = "状态", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "showTip", value = "优先置顶",defaultValue = "1",dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "page", defaultValue = "0", value = "页数,不传默认0", required = true, dataType = "string", paramType = "query"),
             @ApiImplicitParam(name = "size", defaultValue = "100", value = "每页数量,不传默认100", required = true, dataType = "string", paramType = "query"),
 //            @ApiImplicitParam(name = "sortType", value = "排序类型",defaultValue = "desc",required = false, dataType = "string", paramType = "query"),
 //            @ApiImplicitParam(name = "sortField", value = "排序字段",defaultValue = "createTime",required = false, dataType = "string", paramType = "query")
     })
-    @GetMapping(value = "/fishs/{appointKeyId}")
+    @GetMapping(value = "/fishs")
     public Object getRestRoomListByPage(
-            @PathVariable(value = "appointKeyId", required = false) Integer appointKeyId,
-            @RequestParam(value = "status", required = false) Integer status,
+            @RequestParam(value = "appointKeyId", required = false) Integer appointKeyId,
+            @RequestParam(value = "statusType", required = false) Integer status,
+            @RequestParam(value = "showTip", required = false, defaultValue = "1") Integer showTip,
             @RequestParam(value = "page", defaultValue = "0") Integer page,
             @RequestParam(value = "size", defaultValue = "100") @Min(value = 1, message = "值不能小于1") Integer size
 //            @RequestParam(value = "sortType", defaultValue = "desc") String sortType,
 //            @RequestParam(value = "sortField", defaultValue = "createTime") String sortField
     ) throws Exception {
-        Sort sort=new Sort(Sort.Direction.DESC, "searchTime");
-        sort.and(new Sort(Sort.Direction.DESC,"status"));
+        Sort sort=null;
+        if(showTip == 1){
+            sort=new Sort(Sort.Direction.DESC, "statusType");
+            sort.and(new Sort(Sort.Direction.DESC,"remark"));
+            sort.and(new Sort(Sort.Direction.DESC,"createTime"));
+        }
+        else {
+            sort=new Sort(Sort.Direction.DESC,"createTime");
+        }
+
         return fishsService.findAll(Optional.ofNullable(appointKeyId), Optional.ofNullable(status), PageRequest.of(page,size,sort));
     }
 }

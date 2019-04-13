@@ -37,12 +37,6 @@ public class FreeFishApiApplication {
 
         SpringApplication.run(FreeFishApiApplication.class, args);
     }
-    @PostMapping("/test")
-    public Object post(@RequestBody FuckFlow fuckFlow) throws Exception {
-
-        log.info("==============end==============={}",fuckFlow.toString());
-        return port;
-    }
 
     @ResponseBody
     @RequestMapping(value = "/test/json", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")

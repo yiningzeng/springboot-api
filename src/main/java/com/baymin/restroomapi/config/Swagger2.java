@@ -28,9 +28,6 @@ import java.util.List;
 @EnableSwagger2
 public class Swagger2 implements WebMvcConfigurer {
 
-    @Value("${img-path}")
-    private String imgPath;
-
 
     @Value("${swagger.basepackage}")
     private String basepackage;
@@ -47,12 +44,6 @@ public class Swagger2 implements WebMvcConfigurer {
 
     @Bean
     public Docket createRestApi() {
-
-        //图片保存的目录生成也放这了
-        File dir = new File(imgPath);
-        if (!dir.exists()) {
-            dir.mkdirs();
-        }
 
         return new Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo())

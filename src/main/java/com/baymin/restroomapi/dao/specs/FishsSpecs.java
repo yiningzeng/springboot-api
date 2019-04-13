@@ -26,7 +26,7 @@ public class FishsSpecs {
             public Predicate toPredicate(Root<Fishs> root, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 List<Predicate> list = new ArrayList<>();
                 Optional.ofNullable(conditions.getTitle()).ifPresent(v->list.add(cb.like(root.get("title"), "%"+conditions.getTitle()+"%")));
-                Optional.ofNullable(conditions.getDesc()).ifPresent(v->list.add(cb.like(root.get("desc"), "%"+conditions.getDesc()+"%")));
+                Optional.ofNullable(conditions.getDescription()).ifPresent(v->list.add(cb.like(root.get("desc"), "%"+conditions.getDescription()+"%")));
                 return cb.or(list.toArray(new Predicate[list.size()]));
             }
 
