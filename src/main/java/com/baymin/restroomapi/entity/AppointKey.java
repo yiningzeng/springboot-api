@@ -1,5 +1,6 @@
 package com.baymin.restroomapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import io.swagger.annotations.ApiModel;
@@ -39,7 +40,8 @@ public class AppointKey implements Serializable {
     @OneToMany(mappedBy = "appointKey",
             cascade = CascadeType.ALL,
             orphanRemoval = true)
-    @JsonIgnore
+//    @JsonIgnore
+    @JsonBackReference
     @ApiModelProperty(value = "对应的查询数据")
     private List<Fishs> fishs = new ArrayList<>();
 

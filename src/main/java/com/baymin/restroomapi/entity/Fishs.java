@@ -31,7 +31,6 @@ public class Fishs implements Serializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "appointKeyId")
-    @JsonBackReference
     private AppointKey appointKey;
 
     @ApiModelProperty(value = "更新时间距离查询时间多久", example = "10分钟前")
