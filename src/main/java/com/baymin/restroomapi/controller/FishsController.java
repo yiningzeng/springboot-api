@@ -26,7 +26,17 @@ public class FishsController {
 
     @Autowired
     private FishsService fishsService;
-
+    @ApiOperation(value="新增黑名单")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "authorization", value = "authorization token", required = true, dataType = "string", paramType = "header"),
+            @ApiImplicitParam(name = "str", required = true, value = "黑名单内容", dataType = "string", paramType = "query"),
+            @ApiImplicitParam(name = "type", value = "0：内容  1：昵称", dataType = "string", paramType = "query"),
+    })
+    @PostMapping("/blacklist")
+    public Object addBlacklist(@RequestParam(value = "str") String str,
+                         @RequestParam(value = "type", defaultValue = "0") Integer type)throws MyException{
+        return fishsService.addBlacklist(str,type);
+    }
 
     @ApiOperation(value="更新")
     @ApiImplicitParams({
@@ -98,5 +108,20 @@ public class FishsController {
         }
 
         return fishsService.findAll(Optional.ofNullable(appointKeyId), Optional.ofNullable(status), PageRequest.of(page,size,sort));
+    }
+
+    /**
+     * 获取个人列表分页
+     *
+     * @return
+     * @throws Exception
+     */
+    @ApiOperation(value = "获取黑名单列表", response = Fishs.class)
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "authorization", value = "Authorization token", required = true, dataType = "string", paramType = "header"),
+    })
+    @GetMapping(value = "/blacklist")
+    public Object getBlackList() throws Exception {
+        return fishsService.findAllBlacklist();
     }
 }

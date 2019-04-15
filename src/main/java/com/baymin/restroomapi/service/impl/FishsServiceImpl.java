@@ -1,7 +1,10 @@
 package com.baymin.restroomapi.service.impl;
 
 import com.baymin.restroomapi.dao.AppointKeyDao;
+import com.baymin.restroomapi.dao.BlacklistDao;
 import com.baymin.restroomapi.dao.FishsDao;
+import com.baymin.restroomapi.dao.specs.BlacklistSpecs;
+import com.baymin.restroomapi.entity.Blacklist;
 import com.baymin.restroomapi.entity.Fishs;
 import com.baymin.restroomapi.ret.R;
 import com.baymin.restroomapi.ret.enums.ResultEnum;
@@ -17,6 +20,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -27,6 +31,8 @@ public class FishsServiceImpl implements FishsService {
     private FishsDao fishsDao;
     @Autowired
     private AppointKeyDao appointKeyDao;
+    @Autowired
+    private BlacklistDao blacklistDao;
 
 
     @Override
@@ -112,5 +118,19 @@ public class FishsServiceImpl implements FishsService {
     @Override
     public Object findAllAppointKey() throws MyException {
         return R.success(appointKeyDao.findAll());
+    }
+
+    @Override
+    public Object findAllBlacklist() throws MyException {
+        return R.success(blacklistDao.findAll());
+    }
+
+    @Override
+    public Object addBlacklist(String str, Integer type) throws MyException {
+        Blacklist blacklist=new Blacklist();
+        if(type==0) blacklist.setText(str);
+        else blacklist.setUserNick(str);
+        if(blacklistDao.save(blacklist)!=null)return R.success();
+        return R.error(ResultEnum.FAIL_ACTION_MESSAGE);
     }
 }

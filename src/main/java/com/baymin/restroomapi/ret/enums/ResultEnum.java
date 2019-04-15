@@ -18,6 +18,8 @@ public enum ResultEnum {
 
 
     FAIL_NO_PRODUCT(10,"不存在的商品"),
+    FAIL_IN_BLACKLIST(11,"存在黑名单里"),
+    FAIL_NO_BLACKLIST(12,"不存在黑名单里"),
 
 
 

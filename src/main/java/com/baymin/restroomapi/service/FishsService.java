@@ -37,5 +37,26 @@ public interface FishsService {
     Object findAll(Optional<Integer> appointKeyId, Optional<Integer> status, Pageable pageable)throws MyException;
 
 
+    /**
+     * 查找所有的key
+     * @return
+     * @throws MyException
+     */
     Object findAllAppointKey()throws MyException;
+
+
+    /**
+     * 查询是否存在黑名单中
+     * @return
+     * @throws MyException
+     */
+    Object findAllBlacklist()throws MyException;
+
+    /**
+     * 查询是否存在黑名单中
+     * @param str
+     * @return
+     * @throws MyException
+     */
+    Object addBlacklist(String str, Integer type)throws MyException;
 }
